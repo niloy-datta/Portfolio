@@ -2,7 +2,7 @@
 
 import { profileData } from "@/data/profile";
 import { motion } from "framer-motion";
-import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { useMemo } from "react";
 
 const footerVariants = {
@@ -19,31 +19,11 @@ const footerVariants = {
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  // Optimized with useMemo - Gmail icon first for better UX
   const socialLinks = useMemo(
     () => [
-      {
-        icon: Mail,
-        href: profileData.social.email,
-        label: "Email",
-        color: "hover:text-aurora-cyan",
-      },
-      {
-        icon: Github,
-        href: profileData.social.github,
-        label: "GitHub",
-        color: "hover:text-white",
-      },
-      {
-        icon: Linkedin,
-        href: profileData.social.linkedin,
-        label: "LinkedIn",
-        color: "hover:text-aurora-blue",
-      },
+      { icon: Mail, href: profileData.social.email, label: "Email", color: "hover:text-aurora-cyan" },
+      { icon: Github, href: profileData.social.github, label: "GitHub", color: "hover:text-white" },
+      { icon: Linkedin, href: profileData.social.linkedin, label: "LinkedIn", color: "hover:text-aurora-blue" },
     ],
     []
   );
@@ -95,20 +75,21 @@ export default function Footer() {
               </nav>
             </div>
 
-            {/* Social Links */}
             <div className="space-y-4">
-              <h4 className="text-sm font-black uppercase tracking-widest text-white">
-                Connect
-              </h4>
+              <h4 className="text-sm font-black uppercase tracking-widest text-white">Connect</h4>
               <div className="flex gap-4">
                 {socialLinks.map((social) => {
                   const Icon = social.icon;
                   return (
                     <motion.a
                       key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href={social.href || undefined}
+                      aria-disabled={!social.href}
+                      onClick={(event) => {
+                        if (!social.href) event.preventDefault();
+                      }}
+                      target={social.href ? "_blank" : undefined}
+                      rel={social.href ? "noopener noreferrer" : undefined}
                       className={`text-gray-500 transition-colors ${social.color}`}
                       whileHover={{ scale: 1.2, y: -5 }}
                       whileTap={{ scale: 0.95 }}
@@ -120,6 +101,7 @@ export default function Footer() {
                 })}
               </div>
             </div>
+
           </div>
 
           {/* Divider */}
@@ -131,22 +113,6 @@ export default function Footer() {
             <p className="text-xs text-gray-500">
               © {currentYear} {profileData.name.full}. All rights reserved.
             </p>
-
-            {/* Back to Top Button */}
-            <motion.button
-              onClick={scrollToTop}
-              className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Back to Top
-              <motion.span
-                animate={{ y: [0, -3, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <ArrowUp className="w-3 h-3" />
-              </motion.span>
-            </motion.button>
 
             {/* Status Badge */}
             <div className="flex items-center gap-2 text-xs text-gray-500">

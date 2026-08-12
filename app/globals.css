@@ -39,8 +39,7 @@
 }
 
 html {
-  /* Smooth scrolling with fallback */
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   -webkit-overflow-scrolling: touch; /* iOS Safari smooth scrolling - vendor prefix required */
   overflow-x: hidden;
   /* Vendor prefixes for cross-browser compatibility - prevents text inflation on mobile */
@@ -48,13 +47,6 @@ html {
   -ms-text-size-adjust: 100%; /* IE, older Edge */
   /* noinspection CssUnknownProperty */
   text-size-adjust: 100%; /* Modern Chrome 54+, Edge 79+ - Firefox/Safari use prefixed versions above */
-}
-
-/* Fallback for browsers without smooth scroll support */
-@supports not (scroll-behavior: smooth) {
-  html {
-    scroll-behavior: auto;
-  }
 }
 
 * {

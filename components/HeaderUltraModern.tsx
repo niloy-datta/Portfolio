@@ -6,9 +6,8 @@ import {
   motion,
   useMotionValue,
   useSpring,
-  useTransform,
 } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const navItems = [
   { label: "About", id: "about" },
@@ -73,73 +72,8 @@ function MagneticLink({
 }
 
 export default function HeaderUltraModern() {
-  const [activeSection, setActiveSection] = useState("about");
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [pendingSection, setPendingSection] = useState<string | null>(null);
-  const scrollProgress = useMotionValue(0);
-  const activeSectionRef = useRef(activeSection);
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (!element) return;
-
-    const headerOffset = 112;
-    const top = Math.max(
-      0,
-      element.getBoundingClientRect().top + window.scrollY - headerOffset
-    );
-
-    window.history.replaceState(null, "", `#${id}`);
-    window.scrollTo({ top, behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    let animationFrame: number | null = null;
-
-    const updateScrollState = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled((current) => {
-        const next = scrollY > 50;
-        return current === next ? current : next;
-      });
-
-      const maxScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
-      scrollProgress.set(maxScroll > 0 ? scrollY / maxScroll : 0);
-
-      const scrollPosition = scrollY + 200;
-      let nextSection = "about";
-
-      for (let i = navItems.length - 1; i >= 0; i--) {
-        const section = document.getElementById(navItems[i].id);
-        if (section && section.offsetTop <= scrollPosition) {
-          nextSection = navItems[i].id;
-          break;
-        }
-      }
-
-      if (activeSectionRef.current !== nextSection) {
-        activeSectionRef.current = nextSection;
-        setActiveSection(nextSection);
-      }
-
-      animationFrame = null;
-    };
-
-    const handleScroll = () => {
-      if (animationFrame === null) {
-        animationFrame = window.requestAnimationFrame(updateScrollState);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    updateScrollState();
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
-    };
-  }, [scrollProgress]);
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -175,7 +109,7 @@ export default function HeaderUltraModern() {
     if (isMobileMenuOpen || !pendingSection) return;
 
     const frame = window.requestAnimationFrame(() => {
-      scrollToSection(pendingSection);
+      window.location.hash = pendingSection;
       setPendingSection(null);
     });
 
@@ -187,8 +121,6 @@ export default function HeaderUltraModern() {
     setIsMobileMenuOpen(false);
   };
 
-  const scrollWidth = useTransform(scrollProgress, [0, 1], ["0%", "100%"]);
-
   return (
     <>
       <motion.header
@@ -197,34 +129,11 @@ export default function HeaderUltraModern() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as const }}
       >
-        <motion.div
-          className={`flex items-center justify-between px-4 md:px-6 py-3 rounded-full transition-all duration-500 border relative overflow-hidden ${
-            isScrolled
-              ? "bg-[#0a0a0a]/80 backdrop-blur-2xl border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-4xl"
-              : "bg-transparent border-transparent w-full max-w-6xl"
-          }`}
-          layout
-        >
-          {/* Gradient Border Effect */}
-          {isScrolled && (
-            <motion.div
-              className="absolute inset-0 rounded-full opacity-50 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(139,92,246,0.1) 0%, transparent 50%, rgba(6,182,212,0.1) 100%)",
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-            />
-          )}
+        <motion.div className="flex items-center justify-between px-4 md:px-6 py-3 rounded-full border relative overflow-hidden bg-[#0a0a0a]/80 backdrop-blur-2xl border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-4xl">
 
           {/* Logo */}
           <motion.a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+            href="#about"
             className="group flex items-center gap-3 relative z-10"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -261,21 +170,11 @@ export default function HeaderUltraModern() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1 relative z-10">
             {navItems.map((item) => {
-              const isActive = activeSection === item.id;
               return (
                 <MagneticLink
                   key={item.id}
                   href={`#${item.id}`}
-                  isActive={isActive}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setActiveSection(item.id);
-                    activeSectionRef.current = item.id;
-                    scrollToSection(item.id);
-                  }}
-                  className={`relative px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors ${
-                    isActive ? "text-white" : "text-gray-400 hover:text-white"
-                  }`}
+                  className="relative px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors text-gray-400 hover:text-white"
                 >
                   <span className="relative z-10">{item.label}</span>
                 </MagneticLink>
@@ -346,10 +245,6 @@ export default function HeaderUltraModern() {
               className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-xs font-black uppercase tracking-wider overflow-hidden relative group"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("contact");
-              }}
             >
               <span className="relative z-10">Let&apos;s Talk</span>
               <motion.span
@@ -368,19 +263,6 @@ export default function HeaderUltraModern() {
             </motion.a>
           </div>
 
-          {/* Scroll Progress Bar */}
-          {isScrolled && (
-            <motion.div
-              className="absolute bottom-0 left-4 right-4 h-[2px] bg-white/5 rounded-full overflow-hidden pointer-events-none"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              <motion.div
-                className="h-full bg-gradient-to-r from-aurora-cyan via-aurora-purple to-aurora-blue rounded-full pointer-events-none"
-                style={{ width: scrollWidth }}
-              />
-            </motion.div>
-          )}
         </motion.div>
       </motion.header>
 
@@ -461,7 +343,6 @@ export default function HeaderUltraModern() {
               Let&apos;s Work Together
             </motion.a>
 
-            {/* Social Links */}
             <motion.div
               className="absolute bottom-12 flex items-center gap-6"
               initial={{ opacity: 0 }}
@@ -477,9 +358,13 @@ export default function HeaderUltraModern() {
               ].map((social) => (
                 <motion.a
                   key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={social.href || undefined}
+                  aria-disabled={!social.href}
+                  onClick={(event) => {
+                    if (!social.href) event.preventDefault();
+                  }}
+                  target={social.href ? "_blank" : undefined}
+                  rel={social.href ? "noopener noreferrer" : undefined}
                   className="text-xs text-gray-500 font-medium uppercase tracking-widest hover:text-white transition-colors cursor-pointer"
                   whileHover={{ y: -2 }}
                 >
@@ -487,6 +372,7 @@ export default function HeaderUltraModern() {
                 </motion.a>
               ))}
             </motion.div>
+
           </motion.div>
         )}
       </AnimatePresence>

@@ -17,12 +17,12 @@ export const profileData = {
   email: "niloy.datta.dev@gmail.com",
 
   social: {
-    github: "https://github.com/niloy-datta",
+    github: "",
     linkedin: "https://www.linkedin.com/in/niloy-datta-9897473a8/",
-    hackerrank: "https://www.hackerrank.com/profile/niloycd98",
-    leetcode: "https://leetcode.com/u/NILOY_DATTA/",
-    codechef: "https://www.codechef.com/users/niloycd98",
-    email: "mailto:niloy.datta.dev@gmail.com",
+    hackerrank: "",
+    leetcode: "",
+    codechef: "",
+    email: "",
   },
 
   availableForWork: true,
@@ -115,8 +115,8 @@ export const profileData = {
         "Mobile responsive",
       ],
       links: {
-        github: "https://github.com/niloy-datta",
-        live: "https://www.edunexusbd.com",
+        github: "",
+        live: "",
         casestudy: "#",
       },
       image: withBasePath("/projects/sikkhadev.png"),
@@ -160,7 +160,7 @@ export const profileData = {
         "Responsive interface",
       ],
       links: {
-        github: "https://github.com/niloy-datta",
+        github: "",
         live: "#",
         casestudy: "#",
       },
@@ -197,7 +197,7 @@ export const profileData = {
         "Mobile-friendly UI",
       ],
       links: {
-        github: "https://github.com/niloy-datta",
+        github: "",
         live: "#",
         casestudy: "#",
       },
@@ -240,7 +240,7 @@ export const profileData = {
         "Interactive IDE",
       ],
       links: {
-        github: "https://github.com/niloy-datta",
+        github: "",
         live: "#",
         casestudy: "#",
       },
@@ -401,8 +401,7 @@ export const profileData = {
       description:
         "Advanced certification covering functional programming, modularity, and concurrency in modern Java architecture.",
       credentialId: "1Z0-829",
-      verificationUrl:
-        "https://education.oracle.com/java-se-17-developer/pP_JAVA17OCP",
+      verificationUrl: "",
     },
     {
       title: "Spring Certified Professional 2024",
@@ -411,8 +410,7 @@ export const profileData = {
       description:
         "Expert verification in building robust, production-grade microservices using Spring Boot and Spring Cloud-native patterns.",
       credentialId: "2V0-72.22",
-      verificationUrl:
-        "https://www.broadcom.com/support/education/certification/exams/2v0-72-22",
+      verificationUrl: "",
     },
     {
       title: "AWS Certified Solutions Architect - Professional",
@@ -421,7 +419,7 @@ export const profileData = {
       description:
         "Design and deployment of dynamically scalable, highly available, fault-tolerant, and reliable applications on AWS.",
       credentialId: "AWS-SA-PROF-2024",
-      verificationUrl: "https://www.credly.com",
+      verificationUrl: "",
     },
   ],
 
@@ -466,7 +464,7 @@ export const profileData = {
       description:
         "An Arduino-based attendance system that uses RFID cards to identify students and record attendance electronically.",
       technologies: ["Arduino", "RFID Card", "Embedded Systems"],
-      github: "https://github.com/niloy-datta",
+      github: "",
       image: withBasePath("/projects/inventory.png"),
       color: "from-blue-600 to-cyan-500",
     },
@@ -478,7 +476,7 @@ export const profileData = {
       description:
         "A job portal application built with MySQL for storing and managing job listings, candidate information, and application data.",
       technologies: ["MySQL", "Database Design", "SQL"],
-      github: "https://github.com/niloy-datta",
+      github: "",
       image: withBasePath("/projects/unimanage.png"),
       color: "from-purple-600 to-pink-500",
     },
@@ -494,7 +492,7 @@ export const profileData = {
         "Class Design",
         "CRUD Operations",
       ],
-      github: "https://github.com/niloy-datta",
+      github: "",
       image: withBasePath("/projects/unimanage.png"),
       color: "from-emerald-600 to-teal-500",
     },

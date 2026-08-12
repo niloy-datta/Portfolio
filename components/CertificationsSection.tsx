@@ -16,7 +16,7 @@ export default function CertificationsSection() {
     description:
       (cert as any).description ||
       "Verified technical mastery in advanced software development.",
-    credentialLink: cert.verificationUrl || "#",
+    credentialLink: cert.verificationUrl || "",
     icon: icons[index % icons.length],
     glowClass: glows[index % glows.length],
   }));
@@ -81,22 +81,13 @@ export default function CertificationsSection() {
                 <div className="pt-4 flex items-center justify-between">
                   <div className="h-0.5 w-12 bg-white/10" />
                   <a
-                    href={cert.credentialLink}
+                    href={cert.credentialLink || undefined}
+                    aria-disabled={!cert.credentialLink}
                     className="text-xs font-black tracking-[0.1em] uppercase text-white hover:text-aurora-cyan transition-colors flex items-center gap-2 group/link"
                   >
                     Verify Credential
-                    <svg
-                      className="w-4 h-4 group-hover/link:translate-x-1 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
+                    <svg className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                   </a>
                 </div>

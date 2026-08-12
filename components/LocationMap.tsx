@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 export default function LocationMap() {
   return (
     <div className="w-full h-full relative group">
-      {/* Map Container - Dark Mode Filter Applied via CSS */}
       <iframe
         title="Location Map - Sylhet, Bangladesh"
         width="100%"

@@ -102,8 +102,9 @@ export default function AcademicProjectsSection() {
                     {project.year}
                   </span>
                   <a
-                    href={project.github}
-                    title={`View ${project.title} on GitHub`}
+                    href={project.github || undefined}
+                    aria-disabled={!project.github}
+                    title={`View ${project.title} project`}
                     className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-white group-hover:text-blue-400 transition-colors"
                   >
                     View Project <ArrowUpRight className="w-4 h-4" />

@@ -7,9 +7,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 
 const LocationMap = dynamic(() => import("./LocationMap"), { ssr: false });
-const EarthBackground = dynamic(() => import("./EarthBackground"), {
-  ssr: false,
-});
+const EarthBackground = dynamic(() => import("./EarthBackground"), { ssr: false });
 
 type FormData = {
   name: string;
@@ -23,28 +21,16 @@ export default function ContactFormEnhanced() {
     email: "",
     message: "",
   });
-  const [emailAppOpened, setEmailAppOpened] = useState(false);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
     setFormData((current) => ({ ...current, [name]: value }));
-    setEmailAppOpened(false);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const subject = encodeURIComponent(
-      `Portfolio contact from ${formData.name.trim()}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\n${formData.message.trim()}`
-    );
-
-    setEmailAppOpened(true);
-    window.location.href = `mailto:${profileData.email}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -80,8 +66,8 @@ export default function ContactFormEnhanced() {
             Let&apos;s Connect
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Have a project in mind or want to chat about technology? Send me a
-            message and your email app will open with everything ready.
+            Have a project in mind or want to chat about technology? Use the
+            form below to share your details.
           </p>
         </motion.div>
 
@@ -152,15 +138,6 @@ export default function ContactFormEnhanced() {
                 />
               </label>
 
-              {emailAppOpened && (
-                <div
-                  role="status"
-                  className="p-4 rounded-lg bg-emerald-500/20 border border-emerald-500/50 text-emerald-200 text-sm"
-                >
-                  Your email app was opened. Review the message and press Send.
-                </div>
-              )}
-
               <motion.button
                 type="submit"
                 className="w-full px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-white bg-gradient-to-r from-aurora-blue to-aurora-cyan hover:shadow-lg hover:shadow-aurora-cyan/50 transition-all btn-premium"
@@ -169,21 +146,18 @@ export default function ContactFormEnhanced() {
               >
                 <span className="flex items-center justify-center gap-2">
                   <Send className="w-5 h-5" />
-                  Open Email App
+                  Send Message
                 </span>
               </motion.button>
             </form>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <a
-                href={`mailto:${profileData.email}`}
-                className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-gray-300 hover:text-white transition-colors"
-              >
+              <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-gray-300">
                 <Mail className="w-5 h-5 text-aurora-cyan shrink-0" />
                 <span className="font-semibold break-all">
                   {profileData.email}
                 </span>
-              </a>
+              </div>
               <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-gray-300">
                 <MapPin className="w-5 h-5 text-aurora-cyan shrink-0" />
                 <span className="font-semibold">D Block, Upashahar, Sylhet</span>

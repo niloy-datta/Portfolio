@@ -2,14 +2,7 @@
 
 import { profileData } from "@/data/profile";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import {
-  ArrowUpRight,
-  Code2,
-  ExternalLink,
-  Layers,
-  Sparkles,
-  Zap,
-} from "lucide-react";
+import { ArrowUpRight, Code2, ExternalLink, Layers, Sparkles, Zap } from "lucide-react";
 import { useRef, useState } from "react";
 
 // 3D Tilt Card Component
@@ -286,7 +279,12 @@ function ProjectCard({
             {/* CTA Section */}
             <div className="flex items-center gap-4 mt-auto pt-8 relative z-10">
               <motion.a
-                href={project.links.github}
+                href={project.links.github || undefined}
+                aria-disabled={!project.links.github}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  if (!project.links.github) event.preventDefault();
+                }}
                 className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/[0.03] text-white hover:bg-white/10 border border-white/10 hover:border-white/20 text-sm font-bold transition-all duration-300"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -297,17 +295,19 @@ function ProjectCard({
               </motion.a>
 
               <motion.a
-                href={project.links.live}
+                href={project.links.live || undefined}
+                aria-disabled={!project.links.live || project.links.live === "#"}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  if (!project.links.live || project.links.live === "#") event.preventDefault();
+                }}
                 className="group/btn relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-bold overflow-hidden"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {/* Animated Gradient Background */}
                 <motion.div
                   className={`absolute inset-0 bg-gradient-to-r ${project.color} bg-size-200`}
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
+                  animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                   transition={{ duration: 5, repeat: Infinity }}
                 />
                 <ExternalLink className="w-4 h-4 relative z-10" />

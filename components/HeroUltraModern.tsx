@@ -23,11 +23,7 @@ const PAUSE_AFTER_DELETING = 400;
 const socialLinks = [
   { href: profileData.social.github, label: "GitHub", icon: "github" },
   { href: profileData.social.linkedin, label: "LinkedIn", icon: "linkedin" },
-  {
-    href: profileData.social.hackerrank,
-    label: "HackerRank",
-    icon: "hackerrank",
-  },
+  { href: profileData.social.hackerrank, label: "HackerRank", icon: "hackerrank" },
   { href: profileData.social.leetcode, label: "LeetCode", icon: "code" },
   { href: profileData.social.codechef, label: "CodeChef", icon: "codechef" },
   { href: profileData.social.email, label: "Email", icon: "email" },
@@ -371,7 +367,7 @@ export default function HeroEnhanced() {
               </motion.a>
             </motion.div>
 
-            {/* Social Links - Minimal Modern */}
+            {/* Social icons stay visible while their new links are pending. */}
             <motion.div
               variants={itemVariants}
               className="flex items-center justify-center lg:justify-start gap-8 pt-6"
@@ -379,39 +375,26 @@ export default function HeroEnhanced() {
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={social.href || undefined}
+                  aria-disabled={!social.href}
+                  onClick={(event) => {
+                    if (!social.href) event.preventDefault();
+                  }}
+                  target={social.href ? "_blank" : undefined}
+                  rel={social.href ? "noopener noreferrer" : undefined}
                   className="w-12 h-12 flex items-center justify-center rounded-xl bg-white/[0.03] border border-white/10 text-white/40 hover:text-white hover:border-aurora-cyan/30 hover:bg-white/[0.08] transition-all duration-300 group relative overflow-hidden z-20 cursor-pointer pointer-events-auto"
                   whileHover={{ y: -5, scale: 1.1 }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1 + index * 0.1 }}
                 >
-                  {/* Icon Mapping */}
-                  {social.icon === "github" && (
-                    <Github className="w-5 h-5 relative z-10" />
-                  )}
-                  {social.icon === "linkedin" && (
-                    <Linkedin className="w-5 h-5 relative z-10" />
-                  )}
-                  {social.icon === "hackerrank" && (
-                    <Terminal className="w-5 h-5 relative z-10" />
-                  )}
-                  {social.icon === "code" && (
-                    <Code2 className="w-5 h-5 relative z-10" />
-                  )}
-                  {social.icon === "codechef" && (
-                    <Trophy className="w-5 h-5 relative z-10" />
-                  )}
-                  {social.icon === "email" && (
-                    <Mail className="w-5 h-5 relative z-10" />
-                  )}
-
-                  {/* Hover Glow */}
+                  {social.icon === "github" && <Github className="w-5 h-5 relative z-10" />}
+                  {social.icon === "linkedin" && <Linkedin className="w-5 h-5 relative z-10" />}
+                  {social.icon === "hackerrank" && <Terminal className="w-5 h-5 relative z-10" />}
+                  {social.icon === "code" && <Code2 className="w-5 h-5 relative z-10" />}
+                  {social.icon === "codechef" && <Trophy className="w-5 h-5 relative z-10" />}
+                  {social.icon === "email" && <Mail className="w-5 h-5 relative z-10" />}
                   <motion.div className="absolute inset-0 bg-gradient-to-br from-aurora-cyan/20 to-aurora-purple/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                  {/* Tooltip */}
                   <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/10 rounded-lg text-[10px] font-bold text-white opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap">
                     {social.label}
                   </span>
@@ -419,27 +402,6 @@ export default function HeroEnhanced() {
               ))}
             </motion.div>
 
-            {/* Scroll Indicator */}
-            <motion.div
-              variants={itemVariants}
-              className="hidden lg:flex items-center gap-3 text-white/30 pt-8"
-            >
-              <motion.div
-                className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-1"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
-              >
-                <motion.div
-                  className="w-1.5 h-2 bg-white/50 rounded-full"
-                  animate={{ y: [0, 12, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-              </motion.div>
-              <span className="text-xs uppercase tracking-[0.2em] font-medium">
-                Scroll to explore
-              </span>
-            </motion.div>
           </div>
 
           {/* Right Column: Profile Image - Ultra Modern */}

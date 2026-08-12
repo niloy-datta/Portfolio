@@ -109,7 +109,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     image: profileData.profilePicture,
     email: profileData.email,
     url: "https://niloychandra.dev",
-    sameAs: Object.values(profileData.social),
     knowsAbout: profileData.skills.flatMap((cat) =>
       cat.skills.map((s) => s.name)
     ),
