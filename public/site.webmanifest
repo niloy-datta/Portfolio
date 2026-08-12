@@ -1,0 +1,40 @@
+{
+  "name": "Niloy Portfolio",
+  "short_name": "Niloy",
+  "description": "Portfolio of Niloy Chandra Datta - Full-Stack Java & Android Developer",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "categories": ["technology", "productivity"],
+  "icons": [
+    {
+      "src": "niloy-profile.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "niloy-profile.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Projects",
+      "short_name": "Projects",
+      "description": "View my featured projects",
+      "url": "./#projects"
+    },
+    {
+      "name": "Contact Me",
+      "short_name": "Contact",
+      "description": "Get in touch",
+      "url": "./#contact"
+    }
+  ]
+}

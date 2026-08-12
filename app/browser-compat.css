@@ -1,0 +1,36 @@
+/* Keep global browser compatibility rules small so they never interfere with
+   the document's natural vertical scroll container. */
+html {
+  overflow-x: hidden;
+  overflow-x: clip;
+  scroll-padding-top: 7rem;
+}
+
+body {
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

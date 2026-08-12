@@ -1,0 +1,28 @@
+{
+  "recommendations": [
+    // Essential for Next.js/React development
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    
+    // TypeScript support
+    "ms-vscode.vscode-typescript-next",
+    
+    // Tailwind CSS IntelliSense
+    "bradlc.vscode-tailwindcss",
+    
+    // React/Next.js specific
+    "dsznajder.es7-react-js-snippets",
+    "formulahendry.auto-rename-tag",
+    
+    // Git integration
+    "eamodio.gitlens",
+    
+    // Code quality
+    "usernamehw.errorlens",
+    "christian-kohler.path-intellisense",
+    
+    // File management
+    "christian-kohler.npm-intellisense",
+    "ms-vscode.vscode-json"
+  ]
+}
